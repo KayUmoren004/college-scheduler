@@ -142,6 +142,84 @@ const Firebase = {
   },
 
   // Auth Ends
+
+  // Course
+
+  // store Course in user subcollection
+  addCourse: async (course) => {
+    try {
+      const uid = Firebase.getCurrentUser().uid;
+      const docRef = doc(
+        db,
+        "users",
+        uid,
+        "courses",
+        course.courseInformation.courseCode
+      );
+
+      await setDoc(docRef, course);
+    } catch (err) {
+      console.log("Error @Firebase.addCourse: ", err.message);
+    }
+  },
+
+  // get Course from user subcollection
+  getCourse: async (code) => {
+    try {
+      const uid = Firebase.getCurrentUser().uid;
+      const docRef = doc(db, "users", uid, "courses", code);
+
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data();
+      }
+    } catch (err) {
+      console.log("Error @Firebase.getCourse: ", err.message);
+    }
+  },
+
+  // update Course in user subcollection
+  updateCourse: async (code, course) => {
+    try {
+      const uid = Firebase.getCurrentUser().uid;
+      const docRef = doc(db, "users", uid, "courses", code);
+
+      await updateDoc(docRef, course);
+    } catch (err) {
+      console.log("Error @Firebase.updateCourse: ", err.message);
+    }
+  },
+
+  // delete Course from user subcollection
+  deleteCourse: async (code) => {
+    try {
+      const uid = Firebase.getCurrentUser().uid;
+      const docRef = doc(db, "users", uid, "courses", code);
+
+      await deleteDoc(docRef);
+    } catch (err) {
+      console.log("Error @Firebase.deleteCourse: ", err.message);
+    }
+  },
+
+  // get all Courses from user subcollection
+  getCourses: async () => {
+    try {
+      const uid = Firebase.getCurrentUser().uid;
+      const docRef = doc(db, "users", uid, "courses");
+
+      const docSnap = await getDocs(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data();
+      }
+    } catch (err) {
+      console.log("Error @Firebase.getCourses: ", err.message);
+    }
+  },
+
+  // Course Ends
 };
 
 const FirebaseProvider = (props) => {

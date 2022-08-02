@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
 import Bottom from "./Bottom";
+import Profile from "../screens/app/Profile";
 import Course from "../components/app/course/Course";
 
 const App = () => {
@@ -23,6 +24,13 @@ const App = () => {
         <Stack.Screen
           name="Course"
           component={Course}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{
             headerShown: false,
           }}

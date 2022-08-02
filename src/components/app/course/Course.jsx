@@ -1,23 +1,39 @@
-import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// Dependencies
-import { StyleSheet, Text, View } from "react-native";
+// Screens
+import C1 from "./C1";
+import C2 from "./C2";
+import C3 from "./C3";
 
 const Course = () => {
+  // Nav Stack
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text style={{ color: "#fff" }}>Course</Text>
-    </View>
+    <Stack.Navigator initialRouteName="C1">
+      <Stack.Screen
+        name="C1"
+        component={C1}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="C2"
+        component={C2}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="C3"
+        component={C3}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
 export default Course;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
