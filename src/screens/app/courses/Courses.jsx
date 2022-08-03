@@ -45,38 +45,51 @@ const Courses = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {courses ? (
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        >
+      <View
+        style={
+          {
+            // flex: 1,
+          }
+        }
+      >
+        <Text>Test</Text>
+      </View>
+      <View>
+        {courses ? (
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          >
+            <View
+              style={
+                {
+                  // marginBottom: insets.bottom,
+                }
+              }
+            >
+              {courses.map((course) => (
+                <CourseItem
+                  key={course.courseInformation.courseCode}
+                  course={course}
+                  onPress={() =>
+                    navigation.navigate("Course Details", { course })
+                  }
+                />
+              ))}
+            </View>
+          </ScrollView>
+        ) : (
           <View
             style={{
-              marginBottom: insets.bottom,
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {courses.map((course) => (
-              <CourseItem
-                key={course.courseInformation.courseCode}
-                course={course}
-                onPress={() =>
-                  navigation.navigate("Course Details", { course })
-                }
-              />
-            ))}
+            <ActivityIndicator size="large" color={Colors.lavenderBlue} />
           </View>
-        </ScrollView>
-      ) : (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <ActivityIndicator size="large" color={Colors.lavenderBlue} />
-        </View>
-      )}
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -88,6 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     // alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "space-between",
   },
 });
