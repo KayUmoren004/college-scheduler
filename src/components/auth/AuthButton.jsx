@@ -1,16 +1,26 @@
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import Colors from "../../utils/Colors";
 
-const Button = ({ onPress, label, color, disabled }) => (
+const Button = ({ onPress, label, destructive, disabled }) => (
   <TouchableOpacity onPress={onPress} style={Styles.Btn} disabled={disabled}>
     <View
       style={[
         Styles.Btn,
-        { backgroundColor: disabled ? Colors.gray : Colors.lavenderBlue },
+        {
+          backgroundColor: disabled
+            ? Colors.gray
+            : destructive
+            ? Colors.darkByzantium
+            : Colors.lavenderBlue,
+        },
       ]}
     >
       <Text
-        style={{ color: Colors.oxfordBlue, fontSize: 30, fontWeight: "200" }}
+        style={{
+          color: destructive ? Colors.white : Colors.oxfordBlue,
+          fontSize: 30,
+          fontWeight: "200",
+        }}
       >
         {label}
       </Text>

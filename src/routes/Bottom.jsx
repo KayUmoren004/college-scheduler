@@ -8,7 +8,7 @@ import Home from "../screens/app/Home";
 import Calendar from "../screens/app/Calendar";
 import Assignments from "../screens/app/Assignments";
 import Reminders from "../screens/app/Reminders";
-import Courses from "../screens/app/Courses";
+import Courses from "../screens/app/courses/Courses";
 
 // Screen options
 const ScreenOptions = ({ route }) => ({

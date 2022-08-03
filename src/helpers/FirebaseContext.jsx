@@ -207,13 +207,13 @@ const Firebase = {
   getCourses: async () => {
     try {
       const uid = Firebase.getCurrentUser().uid;
-      const docRef = doc(db, "users", uid, "courses");
 
-      const docSnap = await getDocs(docRef);
+      const docRef = doc(db, "users", uid);
+      const collectionRef = collection(docRef, "courses");
 
-      if (docSnap.exists()) {
-        return docSnap.data();
-      }
+      const querySnapshot = await getDocs(collectionRef);
+
+      return querySnapshot;
     } catch (err) {
       console.log("Error @Firebase.getCourses: ", err.message);
     }

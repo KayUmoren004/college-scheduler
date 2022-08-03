@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Bottom from "./Bottom";
 import Profile from "../screens/app/Profile";
 import Course from "../components/app/course/Course";
+import CourseL from "../screens/app/courses/CourseL";
 
 const App = () => {
   // Stack Navigator
@@ -35,9 +36,15 @@ const App = () => {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="Course Details"
+          component={CourseL}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default App;
