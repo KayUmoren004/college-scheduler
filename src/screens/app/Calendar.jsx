@@ -18,7 +18,7 @@ const Calendar = () => {
   const Firebase = useContext(FirebaseContext);
 
   // State
-  const [courses, setCourses] = useState();
+  const [courses, setCourses] = useState([]);
   const [day, setDay] = useState("M");
   const [monday, setMonday] = useState();
   const [tuesday, setTuesday] = useState();
@@ -57,16 +57,86 @@ const Calendar = () => {
   useEffect(() => {
     // Loop through courses and sort them into days
     // TODO: Sort courses into days
+    // // Error here
+    // Object.values(courses).forEach((course) => {
+    //   if (course.classDays.includes("Monday")) {
+    //     setMonday({
+    //       ...monday,
+    //       [course.courseName]: course.courseInformation.courseTitle,
+    //     });
+    //   }
+    // });
+    // for (const child of courses) {
+    //   // add each child that has a class on Monday to the monday state
+    //   // if (child.classDays.includes("Monday")) {
+    //   // }
+    //   //  console.log(child.classDays);
+    //   const newChild = [...child.classDays];
+    //   // for (const days of child) {
+    //   //   console.log(days);
+    //   //   // if (day.classDays.includes("Monday")) {
+    //   //   //   console.log(child.courseInformation.courseTitle);
+    //   //   // }
+    //   // }
+    // }
 
-    // Error here
-    courses.forEach((course) => {
-      if (course.classDays.includes("Monday")) {
-        setMonday({
-          ...monday,
-          [course.courseName]: course.courseInformation.courseTitle,
+    // for (let i = 0; i < courses.length; i++) {
+    //   // convert classDays to array
+    //   const classDaysArr = Object.values(courses[i].classDays);
+    //   const labDaysArr = Object.values(courses[i].lab.labDays);
+
+    //   // Loop through each course and sort them into days
+    //   // for (let j = 0; j < classDaysArr.length; j++) {
+    //   //   if (classDaysArr[j].includes("Monday") && classDaysArr) {
+    //   //     setMonday({
+    //   //       ...monday,
+    //   //       [courses[i].courseInformation.courseCode]:
+    //   //         courses[i].courseInformation.courseTitle,
+    //   //     });
+
+    //   //   }
+    //   //   if (classDaysArr[j].includes("Tuesday")) {
+    //   //     setTuesday({
+    //   //       ...tuesday,
+    //   //       [courses[i].courseInformation.courseCode]:
+    //   //         courses[i].courseInformation.courseTitle,
+    //   //     });
+    //   //   }
+    //   //   if (classDaysArr[j].includes("Wednesday")) {
+    //   //     setWednesday({
+    //   //       ...wednesday,
+    //   //       [courses[i].courseInformation.courseCode]:
+    //   //         courses[i].courseInformation.courseTitle,
+    //   //     });
+    //   //   }
+    //   //   if (classDaysArr[j].includes("Thursday")) {
+    //   //     setThursday({
+    //   //       ...thursday,
+    //   //       [courses[i].courseInformation.courseCode]:
+    //   //         courses[i].courseInformation.courseTitle,
+    //   //     });
+    //   //   }
+    //   //   if (classDaysArr[j].includes("Friday")) {
+    //   //     setFriday({
+    //   //       ...friday,
+    //   //       [courses[i].courseInformation.courseCode]:
+    //   //         courses[i].courseInformation.courseTitle,
+    //   //     });
+    //   //   }
+    //   // }
+    // }
+
+    for (const course of courses) {
+      // convert classDays to array
+      const classDaysArr = Object.values(course.classDays);
+      const labDaysArr = Object.values(course.lab.labDays);
+      for (const courseDays of classDaysArr) {
+        console.log({
+          [course.courseInformation
+            .courseCode]: `${course.courseInformation.courseTitle} : ${courseDays}`,
         });
       }
-    });
+    }
   }, [courses]);
 
   // console.log({
@@ -158,7 +228,7 @@ const Calendar = () => {
               </View>
             );
           })} */}
-        {day === "M" ? (
+        {/* {day === "M" ? (
           <Monday />
         ) : day === "T" ? (
           <Tuesday />
@@ -168,7 +238,7 @@ const Calendar = () => {
           <Thursday />
         ) : day === "F" ? (
           <Friday />
-        ) : null}
+        ) : null} */}
       </View>
     </SafeAreaView>
   );
