@@ -31,69 +31,69 @@ const CourseItem = ({ course, onPress }) => {
   // console.log("course: ", course.classDays);
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
           padding: 10,
         }}
-      >
-        <Feather
+      > */}
+      {/* <Feather
           name={course.courseInformation.courseIcon}
           size={40}
           color={Colors.lavenderBlue}
           style={{
             marginRight: 10,
           }}
-        />
-        <View>
-          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-            {course.courseInformation.courseTitle}
-          </Text>
-          <Text style={{ color: Colors.cadet }}>
-            {course.courseInformation.courseCode}
-          </Text>
-          <View
+        /> */}
+      <View>
+        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+          {course.courseInformation.courseTitle}
+        </Text>
+        <Text style={{ color: Colors.cadet }}>
+          {course.courseInformation.courseCode}
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            // justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AddSeparators separator={" | "}>
+            {Object.values(course.classDays).map((day, idx) => (
+              <Text key={idx} style={{ color: "#fff" }}>
+                {day}
+              </Text>
+            ))}
+          </AddSeparators>
+
+          <Feather
+            name="at-sign"
+            size={16}
+            color={Colors.lavenderWeb}
             style={{
-              flexDirection: "row",
-              // justifyContent: "center",
-              alignItems: "center",
+              marginHorizontal: 8,
             }}
-          >
-            <AddSeparators separator={" | "}>
-              {Object.values(course.classDays).map((day, idx) => (
-                <Text key={idx} style={{ color: "#fff" }}>
-                  {day}
-                </Text>
-              ))}
-            </AddSeparators>
+          />
 
-            <Feather
-              name="at-sign"
-              size={16}
-              color={Colors.lavenderWeb}
-              style={{
-                marginHorizontal: 8,
-              }}
-            />
+          <Text style={{ color: "#fff" }}>
+            {course.classTimes.start} - {course.classTimes.end}
+          </Text>
 
-            <Text style={{ color: "#fff" }}>
-              {course.classTimes.start} - {course.classTimes.end}
-            </Text>
-
-            {/* {course.classDays.map((day, idx) => (
+          {/* {course.classDays.map((day, idx) => (
           <Text key={idx} style={{ color: "#fff" }}>
             {day}
           </Text>
         ))} */}
-          </View>
-          {/* <Text style={{ color: "#fff" }}>
+        </View>
+        {/* <Text style={{ color: "#fff" }}>
         Lab: {course.lab.labDays[0] ? "Yes" : "No"}
       </Text> */}
-          {/* Lab Schedule */}
-        </View>
+        {/* Lab Schedule */}
       </View>
+      {/* </View> */}
     </TouchableOpacity>
   );
 };

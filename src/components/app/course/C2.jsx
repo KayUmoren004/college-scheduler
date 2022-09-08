@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Input } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 import { CourseSchema2 } from "./../../../utils/Validation";
 import { hours, minutes, ms } from "./../../../utils/Picks";
@@ -14,8 +14,13 @@ import Days from "./Days";
 import RNPicker from "./Picker";
 import Choice from "./Choice";
 
+import { FirebaseContext } from "../../../helpers/FirebaseContext";
+
 const C2 = ({ navigation, route }) => {
   const { C1 } = route.params;
+
+  // Context
+  const Firebase = useContext(FirebaseContext);
 
   // State
   // Days
@@ -114,22 +119,51 @@ const C2 = ({ navigation, route }) => {
             classRoom: "",
           }}
           validationSchema={CourseSchema2}
-          onSubmit={(val) => {
+          onSubmit={async (val) => {
             setClassLocation({
               building: val.classBuilding,
               room: val.classRoom,
             });
-            console.log({
-              C1,
-              classDays,
-              classStartTime: `${classStartHour}:${classStartMinute} ${classStartMS}`,
-              classEndTime: `${classEndHour}:${classEndMinute} ${classEndMS}`,
+            setLoading(true);
+            // console.log({
+            //   C1,
+            //   classDays,
+            //   classStartTime: `${classStartHour}:${classStartMinute} ${classStartMS}`,
+            //   classEndTime: `${classEndHour}:${classEndMinute} ${classEndMS}`,
+            //   classLocation: {
+            //     building: val.classBuilding,
+            //     room: val.classRoom,
+            //   },
+            //   lab: choice,
+            // });
+            const Course = {
+              classDays: Object.assign({}, classDays),
+              classTimes: {
+                start: `${classStartHour}:${classStartMinute} ${classStartMS}`,
+                end: `${classEndHour}:${classEndMinute} ${classEndMS}`,
+              },
               classLocation: {
                 building: val.classBuilding,
                 room: val.classRoom,
               },
+              courseInformation: {
+                courseTitle: C1.title,
+                courseCode: C1.code,
+                courseCredits: C1.credits,
+                courseInstructor: C1.instructor,
+              },
               lab: choice,
-            });
+            };
+            try {
+              await Firebase.addCourse(Course);
+            } catch (err) {
+              console.log("Error @C2.addCourse: ", err.errorMessage);
+            } finally {
+              setLoading(false);
+              navigation.navigate("Bottom", {
+                screen: "Courses",
+              });
+            }
           }}
         >
           {(props) => (
@@ -380,7 +414,20 @@ const C2 = ({ navigation, route }) => {
                           classDays,
                           classStartTime: `${classStartHour}:${classStartMinute} ${classStartMS}`,
                           classEndTime: `${classEndHour}:${classEndMinute} ${classEndMS}`,
-                          lab: choice,
+                          lab: {
+                            lab: choice,
+                            labLocation: {
+                              building: "",
+                              room: "",
+                            },
+                            labDays: {
+                              0: "",
+                            },
+                            labTimes: {
+                              start: "",
+                              end: "",
+                            },
+                          },
                           classLocation: {
                             building: props.values.classBuilding,
                             room: props.values.classRoom,

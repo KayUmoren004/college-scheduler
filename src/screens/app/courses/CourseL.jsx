@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect } from "react";
 
 // Dependencies
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
@@ -22,11 +22,12 @@ const CourseL = ({ navigation, route }) => {
   const classDays = classDaysArr.map((day) => day.slice(0, 1));
   const labDays = labDaysArr.map((day) => day.slice(0, 1));
 
+  console.log(course.lab.lab);
   return (
     <SafeAreaView style={styles.container}>
       <View>
         {/* Course Icon */}
-        <View
+        {/* <View
           style={{
             justifyContent: "center",
             alignItems: "center",
@@ -37,7 +38,7 @@ const CourseL = ({ navigation, route }) => {
             size={100}
             color={Colors.lavenderBlue}
           />
-        </View>
+        </View> */}
         {/* Course Information, Class Location and Times, Class Days*/}
         <View
           style={{
@@ -140,50 +141,53 @@ const CourseL = ({ navigation, route }) => {
           </View>
         </View>
         {/* Lab, Lab Days, and Lab Times */}
-        <View
-          style={{
-            padding: 20,
-          }}
-        >
-          {/* Lab */}
-          <View style={{}}>
-            <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-              Lab: {course.lab.labDays[0] ? "Yes" : "No"}
-            </Text>
-          </View>
-          {/* Lab Days */}
+        {course.lab.lab === "Y" ? (
           <View
             style={{
-              marginVertical: 20,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
+              padding: 20,
             }}
           >
-            <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-              Lab Days:
-            </Text>
-            {labDays.map((day, idx) => (
-              <Days disabled={true} key={idx} title={day} />
-            ))}
-          </View>
-          {/* Lab Times */}
-          <View
-            style={{
-              marginTop: 30,
-            }}
-          >
-            <Text
+            {/* Lab */}
+            <View style={{}}>
+              <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+                Lab: {course.lab.labDays[0] ? "Yes" : "No"}
+              </Text>
+            </View>
+            {/* Lab Days */}
+            <View
               style={{
-                color: "#fff",
-                fontWeight: "bold",
-                fontSize: 18,
+                marginVertical: 20,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              Lab Times: {course.lab.labTimes.start} - {course.lab.labTimes.end}
-            </Text>
+              <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+                Lab Days:
+              </Text>
+              {labDays.map((day, idx) => (
+                <Days disabled={true} key={idx} title={day} />
+              ))}
+            </View>
+            {/* Lab Times */}
+            <View
+              style={{
+                marginTop: 30,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: 18,
+                }}
+              >
+                Lab Times: {course.lab.labTimes.start} -{" "}
+                {course.lab.labTimes.end}
+              </Text>
+            </View>
           </View>
-        </View>
+        ) : null}
       </View>
       <View
         style={{

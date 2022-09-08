@@ -7,6 +7,7 @@ import Bottom from "./Bottom";
 import Profile from "../screens/app/Profile";
 import Course from "../components/app/course/Course";
 import CourseL from "../screens/app/courses/CourseL";
+import Delete from "../screens/app/courses/Delete";
 
 const App = () => {
   // Stack Navigator
@@ -39,6 +40,13 @@ const App = () => {
         <Stack.Screen
           name="Course Details"
           component={CourseL}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Delete"
+          component={Delete}
           options={{
             headerShown: false,
           }}

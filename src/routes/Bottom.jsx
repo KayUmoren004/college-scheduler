@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../utils/Colors";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 // Screens
 import Home from "../screens/app/Home";
@@ -105,17 +105,37 @@ const Bottom = ({ navigation }) => {
           },
           headerTitleAlign: "left",
           headerRight: () => (
-            <TouchableOpacity
+            <View
               style={{
-                padding: 10,
+                // padding: 10,
                 marginRight: 10,
-                alignItems: "center",
-                justifyContent: "center",
+                // alignItems: "center",
+                flexDirection: "row",
               }}
-              onPress={() => navigation.navigate("Course")}
             >
-              <Feather name="plus" size={30} color={Colors.white} />
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  // padding: 10,
+                  // marginRight: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => navigation.navigate("Course")}
+              >
+                <Feather name="plus" size={30} color={Colors.white} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  // padding: 10,
+                  marginLeft: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => navigation.navigate("Delete")}
+              >
+                <Feather name="trash" size={25} color="red" />
+              </TouchableOpacity>
+            </View>
           ),
         }}
       />
