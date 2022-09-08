@@ -57,40 +57,81 @@ const Calendar = () => {
   // };
 
   // Wait for labCourses to be set
-  useEffect(() => {
-    // console.log(filterLabCourses(), "labCourses");
-    // Loop through labCourses and filter by day
-    // for (const child in labCourses) {
-    //   console.log(labCourses[child].lab.labDays, "labCourses[child].lab.day");
-    // }
-    for (let i = 0; i < labCourses.length; i++) {
-      const obj = labCourses[i].lab.labDays;
-      const vals = Object.values(obj).toString();
+  // useEffect(() => {
+  //   // console.log(filterLabCourses(), "labCourses");
+  //   // Loop through labCourses and filter by day
+  //   // for (const child in labCourses) {
+  //   //   console.log(labCourses[child].lab.labDays, "labCourses[child].lab.day");
+  //   // }
+  //   for (let i = 0; i < labCourses.length; i++) {
+  //     const obj = labCourses[i].lab.labDays;
+  //     const vals = Object.values(obj).toString();
 
-      switch (vals) {
-        case "Monday":
-          setMondayLab(labCourses[i]);
-          break;
-        case "Tuesday":
-          setTuesdayLab(labCourses[i]);
-          break;
-        case "Wednesday":
-          setWednesdayLab(labCourses[i]);
-          break;
-        case "Thursday":
-          console.log(labCourses[i]);
-          setThursdayLab(labCourses[i]);
-          break;
-        case "Friday":
-          setFridayLab(labCourses[i]);
-          break;
-        default:
-          break;
-      }
-    }
-  }, [labCourses]);
+  //     switch (vals) {
+  //       case "Monday":
+  //         setMondayLab(labCourses[i]);
+  //         break;
+  //       case "Tuesday":
+  //         setTuesdayLab(labCourses[i]);
+  //         break;
+  //       case "Wednesday":
+  //         setWednesdayLab(labCourses[i]);
+  //         break;
+  //       case "Thursday":
+  //         console.log(labCourses[i]);
+  //         setThursdayLab(labCourses[i]);
+  //         break;
+  //       case "Friday":
+  //         setFridayLab(labCourses[i]);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
+  // }, [labCourses]);
 
   console.log(thursdayLab, "thursdayLab");
+
+  // Test
+  const Test = () => (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#000",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {courses &&
+        courses.map((course, idx) => {
+          return (
+            <View key={idx}>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                {course.courseInformation.courseTitle}
+              </Text>
+            </View>
+          );
+        })}
+      {labCourses &&
+        labCourses.map((course, idx) => {
+          return (
+            <View key={idx}>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                {course.courseInformation.courseTitle}
+              </Text>
+            </View>
+          );
+        })}
+    </View>
+  );
 
   // Wait for preLabCourses to be set
   // useEffect(() => {
@@ -203,15 +244,15 @@ const Calendar = () => {
         {/* List course and course dates */}
 
         {courses && labCourses && day === "M" ? (
-          <Monday courses={monday} lab={mondayLab} />
+          <Monday courses={monday} lab={labCourses} />
         ) : day === "T" ? (
-          <Tuesday courses={tuesday} lab={tuesdayLab} />
+          <Tuesday courses={tuesday} lab={labCourses} />
         ) : day === "W" ? (
-          <Wednesday courses={wednesday} lab={wednesdayLab} />
+          <Wednesday courses={wednesday} lab={labCourses} />
         ) : day === "Th" ? (
-          <Thursday courses={thursday} lab={thursdayLab} />
+          <Thursday courses={thursday} lab={labCourses} />
         ) : day === "F" ? (
-          <Friday courses={friday} lab={fridayLab} />
+          <Friday courses={friday} lab={labCourses} />
         ) : null}
       </View>
     </SafeAreaView>

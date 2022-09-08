@@ -6,6 +6,10 @@ import { StyleSheet, Text, View } from "react-native";
 const Thursday = ({ courses = [], lab = [] }) => {
   // console.log(courses);
   console.log(lab, "lab");
+  const [actualLab, setActualLab] = React.useState([]);
+
+  // Filter labCourses for Thursday
+
   return (
     <View style={styles.container}>
       {courses &&
@@ -22,8 +26,8 @@ const Thursday = ({ courses = [], lab = [] }) => {
             </View>
           );
         })}
-      {lab &&
-        lab.map((course, idx) => {
+      {actualLab &&
+        actualLab.map((course, idx) => {
           return (
             <View key={idx}>
               <Text
