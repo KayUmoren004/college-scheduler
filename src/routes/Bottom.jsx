@@ -1,7 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../utils/Colors";
+<<<<<<< Updated upstream
 import { TouchableOpacity, View } from "react-native";
+=======
+import { TouchableOpacity } from "react-native";
+import { UserContext } from "../helpers/UserContext";
+>>>>>>> Stashed changes
 
 // Screens
 import Home from "../screens/app/Home";
@@ -9,6 +14,7 @@ import Calendar from "../screens/app/Calendar";
 import Assignments from "../screens/app/Assignments";
 import Reminders from "../screens/app/Reminders";
 import Courses from "../screens/app/courses/Courses";
+import { useContext } from "react";
 
 // Screen options
 const ScreenOptions = ({ route }) => ({
@@ -26,7 +32,7 @@ const ScreenOptions = ({ route }) => ({
       case "Home":
         iconName = "grid";
         break;
-      case "Calendar":
+      case "Schedule":
         iconName = "calendar";
         break;
       case "Assignments":
@@ -49,11 +55,14 @@ const ScreenOptions = ({ route }) => ({
 
 const Bottom = ({ navigation }) => {
   const Tab = createBottomTabNavigator();
+  const [User] = useContext(UserContext);
+
+  const name = User.name.slice(0, User.name.indexOf(" "));
 
   return (
     <Tab.Navigator screenOptions={ScreenOptions}>
       <Tab.Screen
-        name="Home"
+        name={`Hello ${name},`}
         component={Home}
         options={{
           headerShown: true,
@@ -84,7 +93,38 @@ const Bottom = ({ navigation }) => {
           ),
         }}
       />
-      <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen
+        name="Schedule"
+        component={Calendar}
+        options={{
+          headerShown: true,
+          headerTitleStyle: {
+            fontSize: 40,
+            fontWeight: "bold",
+            color: Colors.white,
+          },
+          headerStyle: {
+            backgroundColor: Colors.black,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+          headerTitleAlign: "left",
+          headerRight: () => (
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                marginRight: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => navigation.navigate("Weekly")}
+            >
+              <Feather name="align-justify" size={30} color={Colors.white} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Tab.Screen name="Assignments" component={Assignments} />
       <Tab.Screen name="Reminders" component={Reminders} />
       <Tab.Screen
