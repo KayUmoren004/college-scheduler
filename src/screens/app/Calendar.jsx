@@ -228,7 +228,7 @@ const Calendar = () => {
               </View>
             );
           })} */}
-        {/* {day === "M" ? (
+        {day === "M" ? (
           <Monday />
         ) : day === "T" ? (
           <Tuesday />
@@ -238,7 +238,7 @@ const Calendar = () => {
           <Thursday />
         ) : day === "F" ? (
           <Friday />
-        ) : null} */}
+        ) : null}
       </View>
     </SafeAreaView>
   );
