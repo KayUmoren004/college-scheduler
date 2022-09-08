@@ -19,19 +19,24 @@ const Calendar = () => {
 
   // State
   const [courses, setCourses] = useState([]);
+  const [labCourses, setLabCourses] = useState([]);
   const [day, setDay] = useState("M");
   const [monday, setMonday] = useState();
+  const [mondayLab, setMondayLab] = useState();
   const [tuesday, setTuesday] = useState();
+  const [tuesdayLab, setTuesdayLab] = useState();
   const [wednesday, setWednesday] = useState();
+  const [wednesdayLab, setWednesdayLab] = useState();
   const [thursday, setThursday] = useState();
+  const [thursdayLab, setThursdayLab] = useState();
   const [friday, setFriday] = useState();
+  const [fridayLab, setFridayLab] = useState();
 
   // Get Courses
   const getCourses = async () => {
     try {
       const q = await Firebase.getCourses();
       const data = q.docs.map((doc) => doc.data());
-      // console.log("courses: ", data[0].classDays);
       setCourses(data);
     } catch (err) {
       console.log("Error @getCourses: ", err.message);
@@ -44,107 +49,112 @@ const Calendar = () => {
     getCourses();
   }, []);
 
-  // convert classDays to array
-  // const classDaysArr = Object.values(courses.classDays);
-  // const labDaysArr = Object.values(courses.lab.labDays);
+  // const filterLabCourses = () => {
+  //   const labCourses = courses.filter(
+  //     (course) => course.lab.lab === "Y" || course.lab.lab === ""
+  //   );
+  //   setLabCourses(labCourses);
+  // };
 
-  // Sort course days into matching arrays on mount
+  // Wait for labCourses to be set
+  useEffect(() => {
+    // console.log(filterLabCourses(), "labCourses");
+    // Loop through labCourses and filter by day
+    // for (const child in labCourses) {
+    //   console.log(labCourses[child].lab.labDays, "labCourses[child].lab.day");
+    // }
+    for (let i = 0; i < labCourses.length; i++) {
+      const obj = labCourses[i].lab.labDays;
+      const vals = Object.values(obj).toString();
+
+      switch (vals) {
+        case "Monday":
+          setMondayLab(labCourses[i]);
+          break;
+        case "Tuesday":
+          setTuesdayLab(labCourses[i]);
+          break;
+        case "Wednesday":
+          setWednesdayLab(labCourses[i]);
+          break;
+        case "Thursday":
+          console.log(labCourses[i]);
+          setThursdayLab(labCourses[i]);
+          break;
+        case "Friday":
+          setFridayLab(labCourses[i]);
+          break;
+        default:
+          break;
+      }
+    }
+  }, [labCourses]);
+
+  console.log(thursdayLab, "thursdayLab");
+
+  // Wait for preLabCourses to be set
   // useEffect(() => {
-  //   console.log(classDaysArr);
-  // }, [courses]);
+  //   const values = Object.values(courses);
+  //   const lab = values.filter(
+  //     (labDay) => labDay.lab.lab === "Y" || labDay.lab.lab === ""
+  //   );
+  //   setPreLabCourses(lab);
+  //   for (const child in preLabCourses) {
+  //     console.log(
+  //       Object.values(preLabCourses[child].lab.labDays).includes("Thursday")
+  //     );
+
+  //     if (
+  //       Object.values(preLabCourses[child].lab.labDays).includes("Thursday")
+  //     ) {
+  //       // console.log(preLabCourses[child], "Calender");
+  //       setThursdayLab(preLabCourses[child]);
+  //     }
+  //   }
+  // }, [preLabCourses]);
+
+  const filterByValue = (array, value) =>
+    array.filter((el) => {
+      const objValues = Object.values(el).flat();
+      // console.log(objValues);
+      const elementsValues = objValues.map((v) => Object.values(v)).flat();
+      // console.log(elementsValues);
+      return elementsValues.some((v) => v.toString().includes(value));
+    });
 
   // wait for courses to be set then log it
   useEffect(() => {
-    // Loop through courses and sort them into days
-    // TODO: Sort courses into days
-    // // Error here
-    // Object.values(courses).forEach((course) => {
-    //   if (course.classDays.includes("Monday")) {
-    //     setMonday({
-    //       ...monday,
-    //       [course.courseName]: course.courseInformation.courseTitle,
-    //     });
-    //   }
-    // });
-    // for (const child of courses) {
-    //   // add each child that has a class on Monday to the monday state
-    //   // if (child.classDays.includes("Monday")) {
-    //   // }
-    //   //  console.log(child.classDays);
-    //   const newChild = [...child.classDays];
-    //   // for (const days of child) {
-    //   //   console.log(days);
-    //   //   // if (day.classDays.includes("Monday")) {
-    //   //   //   console.log(child.courseInformation.courseTitle);
-    //   //   // }
-    //   // }
-    // }
+    const labC = courses.filter(
+      (course) => course.lab.lab === "Y" || course.lab.lab === ""
+    );
+    setLabCourses(labC);
+    // Add Monday courses and labs to state
+    setMonday(filterByValue(courses, "Monday"));
 
-    // for (let i = 0; i < courses.length; i++) {
-    //   // convert classDays to array
-    //   const classDaysArr = Object.values(courses[i].classDays);
-    //   const labDaysArr = Object.values(courses[i].lab.labDays);
+    // Add Tuesday courses to state
+    setTuesday(filterByValue(courses, "Tuesday"));
 
-    //   // Loop through each course and sort them into days
-    //   // for (let j = 0; j < classDaysArr.length; j++) {
-    //   //   if (classDaysArr[j].includes("Monday") && classDaysArr) {
-    //   //     setMonday({
-    //   //       ...monday,
-    //   //       [courses[i].courseInformation.courseCode]:
-    //   //         courses[i].courseInformation.courseTitle,
-    //   //     });
+    // Add Wednesday courses to state
+    setWednesday(filterByValue(courses, "Wednesday"));
 
-    //   //   }
-    //   //   if (classDaysArr[j].includes("Tuesday")) {
-    //   //     setTuesday({
-    //   //       ...tuesday,
-    //   //       [courses[i].courseInformation.courseCode]:
-    //   //         courses[i].courseInformation.courseTitle,
-    //   //     });
-    //   //   }
-    //   //   if (classDaysArr[j].includes("Wednesday")) {
-    //   //     setWednesday({
-    //   //       ...wednesday,
-    //   //       [courses[i].courseInformation.courseCode]:
-    //   //         courses[i].courseInformation.courseTitle,
-    //   //     });
-    //   //   }
-    //   //   if (classDaysArr[j].includes("Thursday")) {
-    //   //     setThursday({
-    //   //       ...thursday,
-    //   //       [courses[i].courseInformation.courseCode]:
-    //   //         courses[i].courseInformation.courseTitle,
-    //   //     });
-    //   //   }
-    //   //   if (classDaysArr[j].includes("Friday")) {
-    //   //     setFriday({
-    //   //       ...friday,
-    //   //       [courses[i].courseInformation.courseCode]:
-    //   //         courses[i].courseInformation.courseTitle,
-    //   //     });
-    //   //   }
-    //   // }
-    // }
+    // Add Thursday courses to state
+    setThursday(filterByValue(courses, "Thursday"));
 
-    for (const course of courses) {
-      // convert classDays to array
-      const classDaysArr = Object.values(course.classDays);
-      const labDaysArr = Object.values(course.lab.labDays);
-      for (const courseDays of classDaysArr) {
-        console.log({
-          [course.courseInformation
-            .courseCode]: `${course.courseInformation.courseTitle} : ${courseDays}`,
-        });
-      }
-    }
+    // Add Friday courses to state
+    setFriday(filterByValue(courses, "Friday"));
   }, [courses]);
 
   // console.log({
-  //   Monday: monday,
-  //   Tuesday: tuesday,
-  //   Wednesday: wednesday,
-  //   Thursday: thursday,
-  //   Friday: friday,
+  //   thursday: thursday,
+  //   thursdayLab: thursdayLab,
+  // });
+
+  // console.log({
+  //   // Monday: monday.length,
+  //   // Tuesday: tuesday,
+  //   // Wednesday: wednesday,
+  //   // Thursday: thursday,
+  //   // Friday: friday,
   // });
 
   return (
@@ -191,53 +201,17 @@ const Calendar = () => {
         }}
       >
         {/* List course and course dates */}
-        {/* {courses &&
-          courses.map((course, idx) => {
-            // convert classDays to array
-            const classDaysArr = Object.values(course.classDays);
-            const labDaysArr = Object.values(course.lab.labDays);
-            return (
-              <View key={idx}>
-                <Text
-                  style={{
-                    color: "#fff",
-                  }}
-                >
-                  {course.courseInformation.courseTitle}
-                </Text>
-                {classDaysArr.map((day, idx) => (
-                  <Text
-                    key={idx}
-                    style={{
-                      color: "#fff",
-                    }}
-                  >
-                    {day}
-                  </Text>
-                ))}
-                {labDaysArr.map((day, idx) => (
-                  <Text
-                    key={idx}
-                    style={{
-                      color: "#fff",
-                    }}
-                  >
-                    {day}
-                  </Text>
-                ))}
-              </View>
-            );
-          })} */}
-        {day === "M" ? (
-          <Monday />
+
+        {courses && labCourses && day === "M" ? (
+          <Monday courses={monday} lab={mondayLab} />
         ) : day === "T" ? (
-          <Tuesday />
+          <Tuesday courses={tuesday} lab={tuesdayLab} />
         ) : day === "W" ? (
-          <Wednesday />
+          <Wednesday courses={wednesday} lab={wednesdayLab} />
         ) : day === "Th" ? (
-          <Thursday />
+          <Thursday courses={thursday} lab={thursdayLab} />
         ) : day === "F" ? (
-          <Friday />
+          <Friday courses={friday} lab={fridayLab} />
         ) : null}
       </View>
     </SafeAreaView>

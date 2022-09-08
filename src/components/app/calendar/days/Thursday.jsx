@@ -3,10 +3,39 @@ import React from "react";
 // Dependencies
 import { StyleSheet, Text, View } from "react-native";
 
-const Thursday = () => {
+const Thursday = ({ courses = [], lab = [] }) => {
+  // console.log(courses);
+  console.log(lab, "lab");
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#fff" }}>Thursday</Text>
+      {courses &&
+        courses.map((course, idx) => {
+          return (
+            <View key={idx}>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                {course.courseInformation.courseTitle}
+              </Text>
+            </View>
+          );
+        })}
+      {lab &&
+        lab.map((course, idx) => {
+          return (
+            <View key={idx}>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                {course.courseInformation.courseTitle}
+              </Text>
+            </View>
+          );
+        })}
     </View>
   );
 };

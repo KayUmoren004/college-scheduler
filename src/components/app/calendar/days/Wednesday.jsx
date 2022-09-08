@@ -3,10 +3,23 @@ import React from "react";
 // Dependencies
 import { StyleSheet, Text, View } from "react-native";
 
-const Wednesday = () => {
+const Wednesday = ({ courses, lab }) => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#fff" }}>Wednesday</Text>
+      {courses &&
+        courses.map((course, idx) => {
+          return (
+            <View key={idx}>
+              <Text
+                style={{
+                  color: "#fff",
+                }}
+              >
+                {course.courseInformation.courseTitle}
+              </Text>
+            </View>
+          );
+        })}
     </View>
   );
 };

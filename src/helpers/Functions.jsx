@@ -14,6 +14,15 @@ const Functions = {
 
     return month + "-" + date + "-" + year;
   },
+
+  // Filter Courses by Day
+  filterByDay: (courses, day) => {
+    courses.filter((element) => {
+      const objValues = Object.values(element).flat();
+      const elementsValues = objValues.map((v) => Object.values(v)).flat();
+      return elementsValues.some((v) => v.includes(day));
+    });
+  },
 };
 
 export default Functions;
