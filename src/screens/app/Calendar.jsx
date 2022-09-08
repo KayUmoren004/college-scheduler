@@ -57,6 +57,16 @@ const Calendar = () => {
   useEffect(() => {
     // Loop through courses and sort them into days
     // TODO: Sort courses into days
+
+    // Error here
+    courses.forEach((course) => {
+      if (course.classDays.includes("Monday")) {
+        setMonday({
+          ...monday,
+          [course.courseName]: course.courseInformation.courseTitle,
+        });
+      }
+    });
   }, [courses]);
 
   // console.log({
