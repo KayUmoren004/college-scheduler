@@ -7,11 +7,8 @@ import Bottom from "./Bottom";
 import Profile from "../screens/app/Profile";
 import Course from "../components/app/course/Course";
 import CourseL from "../screens/app/courses/CourseL";
-<<<<<<< Updated upstream
 import Delete from "../screens/app/courses/Delete";
-=======
 import Weekly from "../components/app/calendar/Weekly";
->>>>>>> Stashed changes
 
 const App = () => {
   // Stack Navigator
@@ -49,13 +46,15 @@ const App = () => {
           }}
         />
         <Stack.Screen
-<<<<<<< Updated upstream
           name="Delete"
           component={Delete}
-=======
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
           name="Weekly"
           component={Weekly}
->>>>>>> Stashed changes
           options={{
             headerShown: false,
           }}

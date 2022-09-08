@@ -1,12 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import Colors from "../utils/Colors";
-<<<<<<< Updated upstream
 import { TouchableOpacity, View } from "react-native";
-=======
-import { TouchableOpacity } from "react-native";
 import { UserContext } from "../helpers/UserContext";
->>>>>>> Stashed changes
 
 // Screens
 import Home from "../screens/app/Home";
