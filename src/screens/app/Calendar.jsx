@@ -90,7 +90,7 @@ const Calendar = () => {
   //   }
   // }, [labCourses]);
 
-  console.log(thursdayLab, "thursdayLab");
+  // console.log(thursdayLab, "thursdayLab");
 
   // Test
   const Test = () => (
