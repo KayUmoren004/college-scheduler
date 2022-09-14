@@ -70,6 +70,7 @@ const Courses = ({ navigation }) => {
               }
             >
               {courses.map((course) => (
+                // TODO: Fix issue of not real time updates
                 <CourseItem
                   key={course.courseInformation.courseCode}
                   course={course}

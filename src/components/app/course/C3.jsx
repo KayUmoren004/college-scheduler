@@ -137,7 +137,7 @@ const C3 = ({ navigation, route }) => {
                 courseInstructor: values.C1.instructor,
               },
               lab: {
-                lab: values.C2.lab,
+                lab: "Y",
                 labLocation: {
                   building: val.labBuilding,
                   room: val.labRoom,

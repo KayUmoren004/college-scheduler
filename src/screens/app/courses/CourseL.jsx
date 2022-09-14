@@ -189,6 +189,8 @@ const CourseL = ({ navigation, route }) => {
           </View>
         ) : null}
       </View>
+      {/*  // TODO: Edit Button
+       */}
       <View
         style={{
           paddingHorizontal: 20,

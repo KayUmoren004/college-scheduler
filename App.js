@@ -15,4 +15,6 @@ const App = () => {
   );
 };
 
+// TODO: Fix issue of not real time updates
+
 export default App;

@@ -1,60 +1,61 @@
 import React, { useEffect, useState } from "react";
 
 // Dependencies
+import moment from "moment";
 import { StyleSheet, Text, View } from "react-native";
+import Item from "../../schedule/Item";
+const Thursday = ({ courses, lab }) => {
+  const [labThursday, setLabThursday] = useState([]);
 
-const Thursday = ({ courses = [], lab = [] }) => {
-  // console.log(courses);
-  //console.log(lab, "lab");
-  const [actualLab, setActualLab] = useState([]);
+  // Get lab courses by finding if lab.labDays includes Thursday
+  const getLabThursday = () => {
+    if (lab) {
+      const labThursday = lab.filter(
+        (labDay) =>
+          Object.values(labDay.lab.labDays).includes("Thursday") &&
+          labDay.lab.lab === "Y"
+      );
+      setLabThursday(
+        labThursday.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        )
+      );
+    }
+  };
 
-  const filterByValue = (array, value) =>
-    array.filter((el) => {
-      const objValues = Object.values(el).flat();
-      // console.log(objValues);
-      const elementsValues = objValues.map((v) => Object.values(v)).flat();
-      // console.log(elementsValues);
-      return elementsValues.some((v) => v.toString().includes(value));
-    });
-
-  // Filter labCourses for Thursday
+  // Sort classes byt start in courses.classTImes only when courses is not empty
   useEffect(() => {
-    // for (const child in lab) {
-    //   if (Object.values(lab[child].lab.labDays).includes("Thursday")) {
-    //     setActualLab(lab[child]);
-    //   }
-    // }
-    setActualLab(filterByValue(lab.lab, "Thursday"));
-    // console.log(labCourses);
-  }, [lab]);
-  console.log(actualLab, "actualLab");
+    Array.isArray(courses)
+      ? courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        )
+      : [];
+  }, [courses]);
+
+  // Run getLabThursday on mount
+  useEffect(() => {
+    getLabThursday();
+  }, []);
+
   return (
     <View style={styles.container}>
       {courses &&
         courses.map((course, idx) => {
           return (
             <View key={idx}>
-              <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text>
+              <Item course={course} />
             </View>
           );
         })}
-      {actualLab &&
-        actualLab.map((course, idx) => {
+      {labThursday &&
+        Object.values(labThursday).map((course, idx) => {
           return (
             <View key={idx}>
-              <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text>
+              <Item course={course} />
             </View>
           );
         })}
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 10,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });

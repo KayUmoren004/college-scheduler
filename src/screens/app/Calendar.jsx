@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 
 // Dependencies
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import moment from "moment";
 
 import { FirebaseContext } from "../../helpers/FirebaseContext";
 
@@ -49,111 +50,6 @@ const Calendar = () => {
     getCourses();
   }, []);
 
-  // const filterLabCourses = () => {
-  //   const labCourses = courses.filter(
-  //     (course) => course.lab.lab === "Y" || course.lab.lab === ""
-  //   );
-  //   setLabCourses(labCourses);
-  // };
-
-  // Wait for labCourses to be set
-  // useEffect(() => {
-  //   // console.log(filterLabCourses(), "labCourses");
-  //   // Loop through labCourses and filter by day
-  //   // for (const child in labCourses) {
-  //   //   console.log(labCourses[child].lab.labDays, "labCourses[child].lab.day");
-  //   // }
-  //   for (let i = 0; i < labCourses.length; i++) {
-  //     const obj = labCourses[i].lab.labDays;
-  //     const vals = Object.values(obj).toString();
-
-  //     switch (vals) {
-  //       case "Monday":
-  //         setMondayLab(labCourses[i]);
-  //         break;
-  //       case "Tuesday":
-  //         setTuesdayLab(labCourses[i]);
-  //         break;
-  //       case "Wednesday":
-  //         setWednesdayLab(labCourses[i]);
-  //         break;
-  //       case "Thursday":
-  //         console.log(labCourses[i]);
-  //         setThursdayLab(labCourses[i]);
-  //         break;
-  //       case "Friday":
-  //         setFridayLab(labCourses[i]);
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-  // }, [labCourses]);
-
-  // console.log(thursdayLab, "thursdayLab");
-
-  // Test
-  const Test = () => (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#000",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {courses &&
-        courses.map((course, idx) => {
-          return (
-            <View key={idx}>
-              <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text>
-            </View>
-          );
-        })}
-      {labCourses &&
-        labCourses.map((course, idx) => {
-          return (
-            <View key={idx}>
-              <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text>
-            </View>
-          );
-        })}
-    </View>
-  );
-
-  // Wait for preLabCourses to be set
-  // useEffect(() => {
-  //   const values = Object.values(courses);
-  //   const lab = values.filter(
-  //     (labDay) => labDay.lab.lab === "Y" || labDay.lab.lab === ""
-  //   );
-  //   setPreLabCourses(lab);
-  //   for (const child in preLabCourses) {
-  //     console.log(
-  //       Object.values(preLabCourses[child].lab.labDays).includes("Thursday")
-  //     );
-
-  //     if (
-  //       Object.values(preLabCourses[child].lab.labDays).includes("Thursday")
-  //     ) {
-  //       // console.log(preLabCourses[child], "Calender");
-  //       setThursdayLab(preLabCourses[child]);
-  //     }
-  //   }
-  // }, [preLabCourses]);
-
   const filterByValue = (array, value) =>
     array.filter((el) => {
       const objValues = Object.values(el).flat();
@@ -170,54 +66,68 @@ const Calendar = () => {
     );
     setLabCourses(labC);
     // Add Monday courses and labs to state
-    setMonday(filterByValue(courses, "Monday"));
+    setMonday(
+      filterByValue(
+        courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        ),
+        "Monday"
+      )
+    );
 
     // Add Tuesday courses to state
-    setTuesday(filterByValue(courses, "Tuesday"));
+    setTuesday(
+      filterByValue(
+        courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        ),
+        "Tuesday"
+      )
+    );
 
     // Add Wednesday courses to state
-    setWednesday(filterByValue(courses, "Wednesday"));
+    setWednesday(
+      filterByValue(
+        courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        ),
+        "Wednesday"
+      )
+    );
 
     // Add Thursday courses to state
-    setThursday(filterByValue(courses, "Thursday"));
+    setThursday(
+      filterByValue(
+        courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        ),
+        "Thursday"
+      )
+    );
 
     // Add Friday courses to state
-    setFriday(filterByValue(courses, "Friday"));
+    setFriday(
+      filterByValue(
+        courses.sort(
+          (a, b) =>
+            moment(a.classTimes.start, "hh:mm a").unix() -
+            moment(b.classTimes.start, "hh:mm a").unix()
+        ),
+        "Friday"
+      )
+    );
   }, [courses]);
-
-  // console.log({
-  //   thursday: thursday,
-  //   thursdayLab: thursdayLab,
-  // });
-
-  // console.log({
-  //   // Monday: monday.length,
-  //   // Tuesday: tuesday,
-  //   // Wednesday: wednesday,
-  //   // Thursday: thursday,
-  //   // Friday: friday,
-  // });
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Date */}
-      {/* <View
-        style={{
-          padding: 10,
-        }}
-      >
-        <Text
-          style={{
-            color: "#fff",
-            fontSize: 20,
-            fontWeight: "bold",
-
-            textAlign: "center",
-          }}
-        >
-          Today: {new Date().toLocaleDateString()}
-        </Text>
-      </View> */}
       {/* Create Header to toggle through days of the week */}
       <View
         style={{
@@ -265,7 +175,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000",
-    // alignItems: "center",
     justifyContent: "space-between",
   },
 });
