@@ -27,17 +27,6 @@ const Monday = ({ courses, lab }) => {
     }
   };
 
-  // Sort classes byt start in courses.classTImes only when courses is not empty
-  // useEffect(() => {
-  //   Array.isArray(courses)
-  //     ? courses.sort(
-  //         (a, b) =>
-  //           moment(a.classTimes.start, "hh:mm a").unix() -
-  //           moment(b.classTimes.start, "hh:mm a").unix()
-  //       )
-  //     : [];
-  // }, [courses]);
-
   // Run getLabMonday on mount
   useEffect(() => {
     getLabMonday();
@@ -48,14 +37,12 @@ const Monday = ({ courses, lab }) => {
       {courses &&
         courses.map((course, idx) => {
           return (
-            <View key={idx}>
-              {/* <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text> */}
+            <View
+              style={{
+                margin: 5,
+              }}
+              key={idx}
+            >
               <Item course={course} />
             </View>
           );
@@ -63,14 +50,12 @@ const Monday = ({ courses, lab }) => {
       {labMonday &&
         Object.values(labMonday).map((course, idx) => {
           return (
-            <View key={idx}>
-              {/* <Text
-                style={{
-                  color: "#fff",
-                }}
-              >
-                {course.courseInformation.courseTitle}
-              </Text> */}
+            <View
+              style={{
+                margin: 5,
+              }}
+              key={idx}
+            >
               <Item course={course} />
             </View>
           );

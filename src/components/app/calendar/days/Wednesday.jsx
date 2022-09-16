@@ -47,7 +47,12 @@ const Wednesday = ({ courses, lab }) => {
       {courses &&
         courses.map((course, idx) => {
           return (
-            <View key={idx}>
+            <View
+              style={{
+                margin: 5,
+              }}
+              key={idx}
+            >
               <Item course={course} />
             </View>
           );
@@ -55,7 +60,12 @@ const Wednesday = ({ courses, lab }) => {
       {labWednesday &&
         Object.values(labWednesday).map((course, idx) => {
           return (
-            <View key={idx}>
+            <View
+              style={{
+                margin: 5,
+              }}
+              key={idx}
+            >
               <Item course={course} />
             </View>
           );

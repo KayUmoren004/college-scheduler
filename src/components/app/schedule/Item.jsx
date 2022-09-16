@@ -8,23 +8,35 @@ const Item = ({ course }) => {
   return (
     <View style={styles.container}>
       {/* Name */}
-      <View>
-        <Text style={{ color: "#fff" }}>
-          {course.courseInformation.courseTitle}
-        </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View>
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 15 }}>
+            {course.courseInformation.courseTitle}
+          </Text>
+        </View>
+        {/* Time */}
+        <View>
+          <Text style={{ color: "#fff" }}>
+            {course.classTimes.start} - {course.classTimes.end}
+          </Text>
+        </View>
       </View>
       {/* Instructor */}
-      <View>
-        <Text style={{ color: "#fff" }}>
+      <View
+        style={{
+          marginTop: 5,
+        }}
+      >
+        <Text style={{ color: "#fff", fontWeight: "200" }}>
           {course.courseInformation.courseInstructor}
         </Text>
       </View>
-      {/* Time */}
-      <View>
-        <Text style={{ color: "#fff" }}>
-          {course.classTimes.start} - {course.classTimes.end}
-        </Text>
-      </View>
+
       {/* Location */}
       <View>
         <Text style={{ color: "#fff" }}>{course.classTimes.location}</Text>
@@ -38,6 +50,9 @@ export default Item;
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    justifyContent: "center",
+    backgroundColor: Colors.cadet,
+    borderRadius: 10,
     // borderWidth: 0.5,
     // borderColor: Colors.eggshell,
 
