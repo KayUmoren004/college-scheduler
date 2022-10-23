@@ -9,6 +9,7 @@ const UserProvider = (props) => {
     email: "",
     uid: "",
     isLoggedIn: null,
+    msal_access_token: "",
   });
 
   return (

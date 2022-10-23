@@ -9,6 +9,8 @@ import Course from "../components/app/course/Course";
 import CourseL from "../screens/app/courses/CourseL";
 import Delete from "../screens/app/courses/Delete";
 import Weekly from "../components/app/calendar/Weekly";
+// import Connect from "../components/auth/msal/Connect";
+import Canvas from "../components/app/reminders/Canvas";
 
 const App = () => {
   // Stack Navigator
@@ -55,6 +57,20 @@ const App = () => {
         <Stack.Screen
           name="Weekly"
           component={Weekly}
+          options={{
+            headerShown: false,
+          }}
+        />
+        {/* <Stack.Screen
+          name="Connect"
+          component={Connect}
+          options={{
+            headerShown: false,
+          }}
+        /> */}
+        <Stack.Screen
+          name="Canvas"
+          component={Canvas}
           options={{
             headerShown: false,
           }}

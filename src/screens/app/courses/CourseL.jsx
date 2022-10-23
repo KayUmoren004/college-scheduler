@@ -22,7 +22,6 @@ const CourseL = ({ navigation, route }) => {
   const classDays = classDaysArr.map((day) => day.slice(0, 1));
   const labDays = labDaysArr.map((day) => day.slice(0, 1));
 
-  console.log(course.lab.lab);
   return (
     <SafeAreaView style={styles.container}>
       <View>

@@ -28,7 +28,7 @@ const Courses = ({ navigation }) => {
     try {
       const q = await Firebase.getCourses();
       const data = q.docs.map((doc) => doc.data());
-      // console.log("courses: ", data[0].classDays);
+
       setCourses(data);
     } catch (err) {
       console.log("Error @getCourses.courseItem: ", err.message);
@@ -39,8 +39,6 @@ const Courses = ({ navigation }) => {
   useEffect(() => {
     getCourses();
   }, []);
-
-  // console.log("courses: ", courses);
 
   // Safe Area Insets
   const insets = useSafeAreaInsets();

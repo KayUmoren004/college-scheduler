@@ -56,3 +56,10 @@ export const CourseSchema3 = Yup.object().shape({
     .required("Room is required")
     .min(2, "Room must be at least 2 characters"),
 });
+
+// Add Canvas Link
+export const CanvasSchema = Yup.object().shape({
+  canvasLink: Yup.string()
+    .required("Canvas Link is required")
+    .min(2, "Canvas Link must be at least 2 characters"),
+});

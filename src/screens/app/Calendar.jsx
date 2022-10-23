@@ -5,6 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 
 import { FirebaseContext } from "../../helpers/FirebaseContext";
+import { UserContext } from "../../helpers/UserContext";
 
 // Days
 import Monday from "../../components/app/calendar/days/Monday";
@@ -17,21 +18,23 @@ import Switcher from "../../components/app/calendar/Switcher";
 const Calendar = () => {
   // Context
   const Firebase = useContext(FirebaseContext);
+  const [User] = useContext(UserContext);
 
   // State
   const [courses, setCourses] = useState([]);
   const [labCourses, setLabCourses] = useState([]);
   const [day, setDay] = useState("M");
+  const [today, setToday] = useState(moment().format("dddd"));
   const [monday, setMonday] = useState();
-  const [mondayLab, setMondayLab] = useState();
   const [tuesday, setTuesday] = useState();
-  const [tuesdayLab, setTuesdayLab] = useState();
   const [wednesday, setWednesday] = useState();
-  const [wednesdayLab, setWednesdayLab] = useState();
   const [thursday, setThursday] = useState();
-  const [thursdayLab, setThursdayLab] = useState();
   const [friday, setFriday] = useState();
-  const [fridayLab, setFridayLab] = useState();
+
+  // on mount, set day === today
+  useEffect(() => {
+    setDay(today);
+  }, []);
 
   // Get Courses
   const getCourses = async () => {
@@ -53,9 +56,7 @@ const Calendar = () => {
   const filterByValue = (array, value) =>
     array.filter((el) => {
       const objValues = Object.values(el).flat();
-      // console.log(objValues);
       const elementsValues = objValues.map((v) => Object.values(v)).flat();
-      // console.log(elementsValues);
       return elementsValues.some((v) => v.toString().includes(value));
     });
 
@@ -101,6 +102,8 @@ const Calendar = () => {
       )
     );
 
+    //
+
     // Add Thursday courses to state
     setThursday(
       filterByValue(
@@ -126,24 +129,62 @@ const Calendar = () => {
     );
   }, [courses]);
 
+  const Today = () => {
+    switch (today) {
+      case "Monday":
+        return <Monday courses={monday} labCourses={labCourses} />;
+      case "Tuesday":
+        return <Tuesday courses={tuesday} labCourses={labCourses} />;
+      case "Wednesday":
+        return <Wednesday courses={wednesday} labCourses={labCourses} />;
+      case "Thursday":
+        return <Thursday courses={thursday} labCourses={labCourses} />;
+      case "Friday":
+        return <Friday courses={friday} labCourses={labCourses} />;
+
+      default:
+        return (
+          <Text
+            style={{
+              color: "red",
+              fontSize: 20,
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            No Classes Today
+          </Text>
+        );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Create Header to toggle through days of the week */}
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-around",
           padding: 10,
+          marginTop: 20,
         }}
       >
-        {days.map((d, index) => (
-          <Switcher
-            selected={day === d}
-            key={index}
-            day={d}
-            onPress={() => setDay(d)}
-          />
-        ))}
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "200",
+            color: "#fff",
+          }}
+        >
+          Today:{" "}
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "#fff",
+            }}
+          >
+            {today}
+          </Text>
+        </Text>
       </View>
       {/* Courses */}
       <View
@@ -151,19 +192,7 @@ const Calendar = () => {
           flex: 1,
         }}
       >
-        {/* List course and course dates */}
-
-        {courses && labCourses && day === "M" ? (
-          <Monday courses={monday} lab={labCourses} />
-        ) : day === "T" ? (
-          <Tuesday courses={tuesday} lab={labCourses} />
-        ) : day === "W" ? (
-          <Wednesday courses={wednesday} lab={labCourses} />
-        ) : day === "Th" ? (
-          <Thursday courses={thursday} lab={labCourses} />
-        ) : day === "F" ? (
-          <Friday courses={friday} lab={labCourses} />
-        ) : null}
+        <Today day={today} />
       </View>
     </SafeAreaView>
   );

@@ -90,7 +90,7 @@ const Bottom = ({ navigation }) => {
         }}
       />
       <Tab.Screen
-        name="Schedule"
+        name={"Schedule"}
         component={Calendar}
         options={{
           headerShown: true,
@@ -121,8 +121,48 @@ const Bottom = ({ navigation }) => {
           ),
         }}
       />
-      <Tab.Screen name="Assignments" component={Assignments} />
-      <Tab.Screen name="Reminders" component={Reminders} />
+      {/* <Tab.Screen name="Assignments" component={Assignments} /> */}
+      <Tab.Screen
+        name="Reminders"
+        component={Reminders}
+        options={{
+          headerShown: true,
+          headerTitleStyle: {
+            fontSize: 40,
+            fontWeight: "bold",
+            color: Colors.white,
+          },
+          headerStyle: {
+            backgroundColor: Colors.black,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+          headerTitleAlign: "left",
+          headerRight: () => (
+            <View
+              style={{
+                // padding: 10,
+                marginRight: 10,
+                // alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  // padding: 10,
+                  marginRight: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => navigation.navigate("Canvas")}
+              >
+                <Feather name="plus" size={30} color={Colors.white} />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen
         name="Courses"
         component={Courses}

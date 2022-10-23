@@ -100,6 +100,6 @@ setPasses(
         )
       );
     }
-    return b.passDate > a.passDate ? 1 : -1;
+    return b.passDate > a.passDate ? 1 : -1
   })
 );

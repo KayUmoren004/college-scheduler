@@ -75,6 +75,7 @@ const Firebase = {
       return true;
     } catch (err) {
       console.log("Error @Firebase.updateUserData: ", err.message);
+      return false;
     }
   },
 

@@ -21,6 +21,7 @@ const Loading = () => {
           email: doc.email,
           uid: doc.uid,
           isLoggedIn: true,
+          canvasLink: doc.canvasLink,
         };
         setUser(authUser);
       } else {
