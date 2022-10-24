@@ -86,9 +86,11 @@ const Home = () => {
         (course) =>
           moment(course.classTimes.start, "hh:mm a").unix() >
           moment(now, "hh:mm a").unix()
-      )[0]
+      )
     );
   }, [courses]);
+
+  // console.log(newArr[0]);
 
   const convert = async (link) => {
     const icsRes = await fetch(link);
@@ -145,7 +147,17 @@ const Home = () => {
       {/* Class Now */}
       {classNow && classNow.length > 0 ? (
         <View style={styles.now}>
-          <Text style={{ color: "#fff" }}>Class Now</Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 20,
+
+              marginVertical: 20,
+            }}
+          >
+            Class Now
+          </Text>
           <Now course={classNow} />
         </View>
       ) : (
@@ -165,7 +177,16 @@ const Home = () => {
       {/* Class Next */}
       {classNext && classNext.length > 0 ? (
         <View style={styles.next}>
-          <Text style={{ color: "#fff" }}>Class Next</Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 20,
+              marginVertical: 20,
+            }}
+          >
+            Next Class
+          </Text>
           <Next course={classNext} />
         </View>
       ) : (
@@ -250,6 +271,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const Now = (course) => <Item course={course} />;
+const Now = (course) => <Item course={course.course[0]} />;
 
-const Next = (course) => <Item course={course} />;
+const Next = (course) => <Item course={course.course[0]} />;

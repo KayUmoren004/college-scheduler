@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../utils/Colors";
 
 const Item = ({ course }) => {
+  console.log(course);
   return (
     <View style={styles.container}>
       {/* Name */}
